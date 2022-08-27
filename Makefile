@@ -14,7 +14,7 @@ LDLIBS=-lwiringPi -lpthread
 SRCFILES := $(wildcard src/*.cpp)
 all: $(SRCFILES:src/%.cpp=obj/%.o obj/bme280.o)
 	@ echo 'Construindo arquivo binario usando GCC linker: $<'
-	$(CC) $(CPPFLAGS) obj/*.o -o bin/prog $(LDLIBS)
+	$(CC) $(LDFLAGS) obj/*.o -o bin/prog $(LDLIBS)
 	@ echo 'Terminou a construção do binario: bin/prog'
 	@ echo ' '
 	
