@@ -6,24 +6,28 @@ INCFOLDER := inc/
 SRCFOLDER := src/
 # .o
 OBJFOLDER := obj/
-CC := g++
+CC := gcc
+CXX := g++
 CPPFLAGS := -W -Wall -ansi -std=c++11 -lwiringPi -lpthread -pedantic -ggdb 
-CFLAGS := -W -Wall -ggdb -lwiringPi -x
+CFLAGS := -W -Wall -lwiringPi -ggdb 
 LDFLAGS=-ggdb
 LDLIBS=-lwiringPi -lpthread
-SRCFILES := $(wildcard src/*.cpp)
-all: $(SRCFILES:src/%.cpp=obj/%.o obj/bme280.o)
+CXX_SRCFILES := $(wildcard src/*.cpp)
+C_SRCFILES := $(wildcard src/*.c)
+CXX_OBJECTS = $(patsubst src/%.cpp,obj/%.o,$(CXX_SRCFILES))
+C_OBJECTS = $(patsubst src/%.c,obj/%.o,$(C_SRCFILES))
+all: $(CXX_OBJECTS) $(C_OBJECTS)
 	@ echo 'Construindo arquivo binario usando GCC linker: $<'
-	$(CC) $(LDFLAGS) obj/*.o -o bin/prog $(LDLIBS)
+	$(CXX) $(LDFLAGS) obj/*.o -o bin/prog $(LDLIBS)
 	@ echo 'Terminou a construção do binario: bin/prog'
 	@ echo ' '
 	
 obj/%.o: src/%.cpp
 	@ echo 'Construindo target usando GCC compiler: $<'
-	$(CC) $(CPPFLAGS) -c $< -o $@ -I./inc
+	$(CXX) $(CPPFLAGS) -c $< -o $@ -I./inc
 	@ echo ' '
 
-obj/bme280.o: src/bme280.c
+obj/%.o: src/%.c
 	@ echo 'Construindo target usando GCC compiler: $<'
 	$(CC) $(CFLAGS) c -c $< -o $@ -I./inc
 	@ echo ' '
