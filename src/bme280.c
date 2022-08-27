@@ -745,7 +745,7 @@ int8_t bme280_get_sensor_data(uint8_t sensor_comp, struct bme280_data *comp_data
      * the sensor
      */
     uint8_t reg_data[BME280_P_T_H_DATA_LEN] = { 0 };
-    struct bme280_uncomp_data uncomp_data = { 0 };
+    struct bme280_uncomp_data uncomp_data = { 0, 0, 0 };
 
     /* Check for null pointer in the device structure*/
     rslt = null_ptr_check(dev);
