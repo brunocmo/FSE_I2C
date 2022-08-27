@@ -29,7 +29,7 @@ obj/%.o: src/%.cpp
 
 obj/%.o: src/%.c
 	@ echo 'Construindo target usando GCC compiler: $<'
-	$(CC) $(CFLAGS) c -c $< -o $@ -I./inc
+	$(CC) $(CFLAGS) -c $< -o $@ -I./inc
 	@ echo ' '
 
 run: bin/prog
