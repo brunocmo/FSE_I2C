@@ -8,7 +8,8 @@
 #include <sys/types.h>
 #include <fcntl.h>
 
-#include "bme280.h"
+#include <bme280.h>
+
 struct identifier
 {
     /* Variable to hold device address */
